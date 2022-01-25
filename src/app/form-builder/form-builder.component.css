@@ -1,0 +1,49 @@
+.form-builder{
+    font-size: 1.2em;
+    padding: 3% 5% 1% 5%;
+}
+
+.form-builder h2{
+    color: var(--light-blue);
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+.form-builder .field-work{
+    align-items: center;
+    background: var(--secondary-color) ;
+    border: 1px solid var(--light-blue);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    min-height: 70vh;
+    overflow: auto;
+}
+
+.form-builder .field-work .created-form{
+    background: white;
+    border:1px solid green;
+    height: 60vh;
+    width: 60%;
+}
+
+.form-builder .field-work .drag-elements{
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    padding: 1%;
+    width:30%;
+}
+
+.cdk-drop-dragging .cdk-drag {
+    transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .cdk-drag-preview {
+    box-sizing: border-box;
+  }

@@ -1,0 +1,12 @@
+<div [ngSwitch]="element" class="form-control" >
+    <input *ngSwitchCase="'input'" type="text" readonly >
+    <textarea *ngSwitchCase="'textarea'" readonly></textarea>
+    <button *ngSwitchCase="'button'" readonly>Button</button>
+    <label *ngSwitchCase="'check'" >
+        Check option
+        <input type="checkbox">
+    </label>
+    <select *ngSwitchCase="'select'">
+        <option>option1</option>
+    </select>
+</div>

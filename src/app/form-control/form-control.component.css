@@ -1,0 +1,81 @@
+.form-control{
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    padding: 2% 2%;
+    width: 15em;
+}
+
+.form-control input[type="text"]{
+    border-radius: 5px;
+    height: 1.7em;
+    text-indent: 1em;
+    width: 95%;
+}
+
+.form-control input:hover,
+.form-control textarea:hover,
+.form-control button:hover,
+.form-control label:hover,
+.form-control select:hover{
+    cursor: grab;
+}
+
+.form-control input:focus,
+.form-control textarea:focus,
+.form-control button:focus,
+.form-control label:focus,
+.form-control select:focus{
+    outline: none;
+}
+
+.form-control input:active,
+.form-control textarea:active,
+.form-control button:active,
+.form-control label:active,
+.form-control select:active{
+    cursor: grabbing;
+}
+
+.form-control textarea{
+    box-sizing: border-box;
+    height: 5em;
+    padding: 3%;
+    resize: none;
+    width: 100%;
+}
+
+.form-control button{
+    height: 2em;
+    width: 50%;
+}
+
+.form-control label{
+    font-size: 0.8em;
+}
+
+.form-control label input[type="checkbox"]{
+    height: 1.5em;
+    vertical-align: middle;
+    width: 1.5em;
+}
+
+.form-control select{
+    height: 1.7em;
+    width: 50%;
+}
+
+.cdk-drop-dragging .cdk-drag {
+    transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .cdk-drag-preview {
+    box-sizing: border-box;
+  }

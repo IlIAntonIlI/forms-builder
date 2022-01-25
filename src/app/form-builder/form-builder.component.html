@@ -1,6 +1,24 @@
 <section class="form-builder">
     <h2>Form builder</h2>
+    
     <div class="field-work">
+        <div class="parameters-control-panel">
+            <div class="form-styling">
+                <h2>Form styling</h2>
+                <div>
+                    <label>Enter height:
+                        <input type="text">
+                    </label>
+                    <label>Enter width:
+                        <input type="text">
+                    </label>
+                </div>
+                
+            </div>
+            <div class="element-styling">
+                <h2>Element styling</h2>
+            </div>
+        </div>
         <div class="drag-elements" 
             cdkDropList
             #elementsList="cdkDropList"
@@ -10,11 +28,11 @@
         <app-form-control *ngFor="let item of elements" element="{{item}}" cdkDrag></app-form-control>
         </div>
         <form class="created-form"
-        cdkDropList
-        #formElementsList="cdkDropList"
-        [cdkDropListData]="formElements"
-        [cdkDropListConnectedTo] = "[elementsList]"
-        (cdkDropListDropped)="drop($event)">
+            cdkDropList
+            #formElementsList="cdkDropList"
+            [cdkDropListData]="formElements"
+            [cdkDropListConnectedTo] = "[elementsList]"
+            (cdkDropListDropped)="drop($event)">
             <app-form-control *ngFor="let item of formElements" element="{{item}}" cdkDrag></app-form-control>
         </form>
     </div>

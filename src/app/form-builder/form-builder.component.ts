@@ -12,17 +12,21 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 export class FormBuilderComponent implements OnInit {
   elements = ['input','textarea','button','check','select'];
   formElements:string[]=[];
+  formHeight:string = '26'
+  formWidth:string = '60'
+  
   drop(event: CdkDragDrop<string[]>) {
-    console.log(event);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+      // transferArrayItem(
+      //   event.previousContainer.data,
+      //   event.container.data,
+      //   event.previousIndex,
+      //   event.currentIndex,
+      // );
+      this.formElements.splice(event.currentIndex,0,event.previousContainer.data[event.previousIndex]);
+      console.log(event);
     }
   }
   constructor() { }

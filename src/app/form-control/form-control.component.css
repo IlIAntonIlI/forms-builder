@@ -1,10 +1,9 @@
 .form-control{
+    align-items: center;
     border-radius: 5px;
     box-sizing: border-box;
     display: flex;
-    justify-self: center;
     justify-content: center;
-    align-items: center;
     padding: 2% 2%;
     width: 15em;
 }

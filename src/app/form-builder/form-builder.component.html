@@ -4,16 +4,37 @@
     <div class="field-work">
         <div class="parameters-control-panel">
             <div class="form-styling">
-                <h2>Form styling</h2>
-                <div>
-                    <label>Enter height:
-                        <input type="text">
-                    </label>
-                    <label>Enter width:
-                        <input type="text">
-                    </label>
-                </div>
-                
+                <h2 [ngClass]="classesOpenClosePanel" (click)="changeVisibilityFormStyling()">Form styling</h2>
+                <ng-container #formStylingContainer cdkPortalOutlet></ng-container>
+                <ng-template #formStylingTemplate>
+                    <div class="styling-fields">
+                        <label><span>Enter height:</span>
+                            <input type="text" name="formHeight" [(ngModel)]="formStyle.height">
+                        </label>
+                        <label><span>Enter width:</span>
+                            <input type="text" [(ngModel)]="formStyle.width" >
+                        </label>
+                    </div>
+                    <div>
+                        <h3>Border styling</h3>
+                        <div class="styling-fields">
+                            <label><span>Enter thickness:</span>
+                                <input type="text" [(ngModel)]="formStyle['border-width']" >
+                            </label>
+                            <label><span>Enter color:</span>
+                                <input type="text" [(ngModel)]="formStyle['border-color']" >
+                            </label>
+                            <label><span>Enter border-radius:</span>
+                                <input type="text" [(ngModel)]="formStyle['border-radius']" >
+                            </label>
+                            <select [(ngModel)]="formStyle['border-style']">
+                                <option>dashed</option>
+                                <option>dotted</option>
+                                <option>solid</option>
+                            </select>
+                        </div>
+                    </div>
+                </ng-template>
             </div>
             <div class="element-styling">
                 <h2>Element styling</h2>
@@ -25,16 +46,20 @@
             [cdkDropListData]="elements"
             [cdkDropListConnectedTo]="[formElementsList]"
             (cdkDropListDropped)="drop($event)">
-        <app-form-control *ngFor="let item of elements" element="{{item}}" cdkDrag></app-form-control>
+            <app-form-control *ngFor="let item of elements" element="{{item}}" cdkDrag></app-form-control>
         </div>
-        <form class="created-form"
+        <div class="form-container">
+            <form class="created-form"
             cdkDropList
             #formElementsList="cdkDropList"
             [cdkDropListData]="formElements"
             [cdkDropListConnectedTo] = "[elementsList]"
-            (cdkDropListDropped)="drop($event)">
+            (cdkDropListDropped)="drop($event)"
+            [ngStyle]="formStyle">
             <app-form-control *ngFor="let item of formElements" element="{{item}}" cdkDrag></app-form-control>
         </form>
+        </div>
+        
     </div>
     
 </section>

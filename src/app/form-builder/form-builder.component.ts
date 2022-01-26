@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Component, OnInit, ViewChild, ViewContainerRef, TemplateRef} from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  CdkPortalOutlet
+} from '@angular/cdk/portal';
 
-/**
- * @title Drag&Drop horizontal sorting
- */
 @Component({
   selector: 'app-form-builder',
   templateUrl: './form-builder.component.html',
@@ -12,23 +12,54 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 export class FormBuilderComponent implements OnInit {
   elements = ['input','textarea','button','check','select'];
   formElements:string[]=[];
-  formHeight:string = '26'
-  formWidth:string = '60'
-  
+  formStyle={
+    'width':'100%',
+    'height':'26em',
+    'border-color': 'green',
+    'border-width': '1px',
+    'border-style': 'solid',
+    'border-radius': '0'
+  }
+
+  formStylingOpen:boolean = false;
+
+  classesOpenClosePanel = {
+    'opened-panel': this.formStylingOpen
+  }
+
+  @ViewChild('formStylingContainer', {read: ViewContainerRef, static: false})
+  formStylingContainer!: ViewContainerRef;
+
+  @ViewChild('formStylingContainer', {read: CdkPortalOutlet, static: false})
+  formStylingContainerOutlet!: CdkPortalOutlet;
+
+  @ViewChild('formStylingTemplate', {static: false})
+  formStylingTemplate!: TemplateRef<any>;
+
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      // transferArrayItem(
-      //   event.previousContainer.data,
-      //   event.container.data,
-      //   event.previousIndex,
-      //   event.currentIndex,
-      // );
-      this.formElements.splice(event.currentIndex,0,event.previousContainer.data[event.previousIndex]);
-      console.log(event);
+      if(event.previousContainer.id==='cdk-drop-list-0'){
+        this.formElements.splice(event.currentIndex,0,event.previousContainer.data[event.previousIndex]);
+        return;
+      }
+      this.formElements.splice(event.previousIndex,1);
     }
   }
+  
+  changeVisibilityFormStyling(){
+    if(this.formStylingOpen){
+      this.formStylingContainer.clear();
+      this.formStylingOpen=!this.formStylingOpen;
+      this.classesOpenClosePanel['opened-panel'] = this.formStylingOpen;
+      return;
+    }
+    this.formStylingOpen=!this.formStylingOpen;
+    this.formStylingContainer.createEmbeddedView(this.formStylingTemplate, {});
+    this.classesOpenClosePanel['opened-panel'] = this.formStylingOpen;
+  }
+
   constructor() { }
 
   ngOnInit(): void {

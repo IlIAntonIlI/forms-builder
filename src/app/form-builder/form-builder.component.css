@@ -17,7 +17,6 @@
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     overflow: auto;
     padding: 2%;
 }
@@ -35,37 +34,98 @@
 
 .parameters-control-panel h2{
     color: var(--brighter-blue);
+    cursor: pointer;
     margin-top: 0;
+    position: relative;
     text-align: center;
+}
+
+.parameters-control-panel h2::before{
+    content:"\A";
+    border-style: solid;
+    border-width: 10px 15px 10px 0;
+    border-color: transparent var(--brighter-blue) transparent transparent;
+    left: 10em;
+    position: absolute;
+    top: 0.15em;
+    transform: rotate(180deg);
+}
+
+.parameters-control-panel .opened-panel::before{
+    content:"\A";
+    border-style: solid;
+    border-width: 10px 15px 10px 0;
+    border-color: transparent var(--brighter-blue) transparent transparent;
+    left: 10em;
+    position: absolute;
+    top: 0.15em;
+    transform: rotate(270deg);
 }
 
 .form-styling{
     border-right: 1px solid var(--light-blue);
+    padding-right: 2%;
     width:50%;
 }
 
-.form-styling div{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+.form-styling .styling-fields{
+    display: grid;
+    grid-gap: 0.5em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+}
+
+.form-styling .styling-fields span{
+    display: inline-block;
+    width: 10em;
+}
+
+.form-styling .styling-fields input{
+    height: 2em;
+}
+
+.form-styling .styling-fields select{
+    align-self: center;
+    height: 2.2em;
+    width: 60%;
+}
+
+.parameters-control-panel h3{
+    border-top: 1px dashed var(--light-blue);
+    box-sizing: border-box;
+    color: var(--light-blue);
+    margin: 1em auto 0.4em auto;
+    padding: 1%;
+    text-align: center;
+    width: 80%;
+
 }
 
 .element-styling{
     width:50%;
 }
 
+.form-builder .field-work .form-container{
+    display: flex;
+    justify-content: center;
+    width: 60%;
+}
+
 .form-builder .field-work .created-form{
     background: white;
     border:1px solid green;
     height: 26em;
-    width: 60%;
+    width: 100%;
+    max-width: 100%;
 }
+
 
 .form-builder .field-work .drag-elements{
     display: grid;
     grid-gap: 1em;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+    justify-self: flex-start;
     padding: 1%;
     width:30%;
 }

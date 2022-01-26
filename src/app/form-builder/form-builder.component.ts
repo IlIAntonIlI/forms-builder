@@ -9,7 +9,7 @@ import {
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.css']
 })
-export class FormBuilderComponent implements OnInit {
+export class FormBuilderComponent {
   elements = ['input','textarea','button','check','select'];
   formElements:string[]=[];
   formStyle={
@@ -22,9 +22,15 @@ export class FormBuilderComponent implements OnInit {
   }
 
   formStylingOpen:boolean = false;
+  elementStylingOpen:boolean = false;
+
 
   classesOpenClosePanel = {
     'opened-panel': this.formStylingOpen
+  }
+
+  classesOpenClosePanelElements = {
+    'opened-panel': this.elementStylingOpen
   }
 
   @ViewChild('formStylingContainer', {read: ViewContainerRef, static: false})
@@ -35,6 +41,25 @@ export class FormBuilderComponent implements OnInit {
 
   @ViewChild('formStylingTemplate', {static: false})
   formStylingTemplate!: TemplateRef<any>;
+  
+  @ViewChild('elementStylingContainer', {read: ViewContainerRef, static: false})
+  elementStylingContainer!: ViewContainerRef;
+
+  @ViewChild('elementStylingContainer', {read: CdkPortalOutlet, static: false})
+  elementStylingContainerOutlet!: CdkPortalOutlet;
+
+  @ViewChild('empty', {static: false})
+  emptyTemplate!: TemplateRef<any>;
+
+  elementStylingTemplate?:TemplateRef<any>;
+
+  getElementStylingTemplate(template:TemplateRef<any>){
+    this.elementStylingTemplate = template;
+    if(this.elementStylingOpen){
+      this.elementStylingContainer.clear();
+      this.elementStylingContainer.createEmbeddedView(this.elementStylingTemplate || this.emptyTemplate, {});
+    }
+  }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -60,9 +85,17 @@ export class FormBuilderComponent implements OnInit {
     this.classesOpenClosePanel['opened-panel'] = this.formStylingOpen;
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  changeVisibilityElementStyling(){
+    console.log('hello');
+    if(this.elementStylingOpen){
+      this.elementStylingContainer.clear();
+      this.elementStylingOpen=!this.elementStylingOpen;
+      this.classesOpenClosePanelElements['opened-panel'] = this.elementStylingOpen;
+      return;
+    }
+    this.elementStylingOpen=!this.elementStylingOpen;
+    this.elementStylingContainer.createEmbeddedView(this.elementStylingTemplate || this.emptyTemplate, {});
+    this.classesOpenClosePanelElements['opened-panel'] = this.elementStylingOpen;
   }
 
 }

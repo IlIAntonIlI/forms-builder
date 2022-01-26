@@ -1,12 +1,64 @@
-<div [ngSwitch]="element" class="form-control" >
-    <input *ngSwitchCase="'input'" type="text" readonly >
-    <textarea *ngSwitchCase="'textarea'" readonly></textarea>
-    <button *ngSwitchCase="'button'" readonly>Button</button>
-    <label *ngSwitchCase="'check'" >
+<div [ngSwitch]="element" class="form-control" [ngStyle]="styles" (click)="clickOnFormControl($event)">
+    <input *ngSwitchCase="'input'" type="text" [readonly]="!selectableSection" [placeholder]="elseParameters.placeholder" [required]="elseParameters.required==='required'" [ngStyle]="elementStyle" >
+    <textarea *ngSwitchCase="'textarea'" [readonly]="!selectableSection" [placeholder]="elseParameters.placeholder" [required]="elseParameters.required==='required'" [ngStyle]="elementStyle"></textarea>
+    <button *ngSwitchCase="'button'" [ngStyle]="elementStyle" (click)="sendInfo()">Button</button>
+    <label *ngSwitchCase="'check'" [ngStyle]="elementStyle">
         Check option
-        <input type="checkbox">
+        <input type="checkbox" [required]="elseParameters.required==='required'">
     </label>
-    <select *ngSwitchCase="'select'">
+    <select *ngSwitchCase="'select'" [required]="elseParameters.required==='required'" [ngStyle]="elementStyle">
         <option>option1</option>
+        <option>option2</option>
+        <option>option3</option>
     </select>
+
+    <ng-template #template>
+        <div class="styling-fields">
+            <label><span>Enter height:</span>
+                <input type="text" name="formHeight" [(ngModel)]="elementStyle.height">
+            </label>
+            <select [(ngModel)]="elseParameters.required" *ngIf="element!='button'">
+                <option>required</option>
+                <option>unrequired</option>
+            </select>
+            <label><span>Enter width:</span>
+                <input type="text" [(ngModel)]="elementStyle.width" >
+            </label>
+            <label *ngSwitchCase="'input'"><span>Enter placeholder:</span>
+                <input type="text" [(ngModel)]="elseParameters.placeholder" >
+            </label>
+            <label *ngSwitchCase="'textarea'"><span>Enter placeholder:</span>
+                <input type="text" [(ngModel)]="elseParameters.placeholder" >
+            </label>
+            <label *ngSwitchCase="'input'"><span>Enter font-size:</span>
+                <input type="text" [(ngModel)]="elementStyle['font-size']" >
+            </label>
+            <label *ngSwitchCase="'input'"><span>Enter font-color:</span>
+                <input type="color" [(ngModel)]="elementStyle['color']" >
+            </label>
+            <label *ngSwitchCase="'select'"><span>Enter font-weight<br/>(from 100 to 900):</span>
+                <input type="text" [(ngModel)]="elementStyle['font-weight']" >
+            </label>
+        </div>
+        <div class="border-styling">
+            <h3>Border styling</h3>
+            <div class="styling-fields">
+                <label><span>Enter thickness:</span>
+                    <input type="text" [(ngModel)]="elementStyle['border-width']" >
+                </label>
+                <label><span>Enter color:</span>
+                    <input type="text" [(ngModel)]="elementStyle['border-color']" >
+                </label>
+                <label><span>Enter border-radius:</span>
+                    <input type="text" [(ngModel)]="elementStyle['border-radius']" >
+                </label>
+                <select [(ngModel)]="elementStyle['border-style']">
+                    <option>dashed</option>
+                    <option>dotted</option>
+                    <option>solid</option>
+                </select>
+            </div>
+        </div>
+    </ng-template>
 </div>
+

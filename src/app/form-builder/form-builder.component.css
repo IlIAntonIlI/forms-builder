@@ -43,7 +43,7 @@
 .parameters-control-panel h2::before{
     content:"\A";
     border-style: solid;
-    border-width: 10px 15px 10px 0;
+    border-width: 0.46em 0.56em 0.46em 0;
     border-color: transparent var(--brighter-blue) transparent transparent;
     left: 10em;
     position: absolute;
@@ -52,13 +52,6 @@
 }
 
 .parameters-control-panel .opened-panel::before{
-    content:"\A";
-    border-style: solid;
-    border-width: 10px 15px 10px 0;
-    border-color: transparent var(--brighter-blue) transparent transparent;
-    left: 10em;
-    position: absolute;
-    top: 0.15em;
     transform: rotate(270deg);
 }
 
@@ -81,12 +74,14 @@
 }
 
 .form-styling .styling-fields input{
+    box-sizing: border-box;
     height: 2em;
+    text-indent: 3%;
 }
 
 .form-styling .styling-fields select{
     align-self: center;
-    height: 2.2em;
+    height: 2em;
     width: 60%;
 }
 
@@ -98,10 +93,10 @@
     padding: 1%;
     text-align: center;
     width: 80%;
-
 }
 
 .element-styling{
+    padding: 0 2%;
     width:50%;
 }
 
@@ -114,11 +109,16 @@
 .form-builder .field-work .created-form{
     background: white;
     border:1px solid green;
+    display: grid;
     height: 26em;
-    width: 100%;
     max-width: 100%;
+    padding: 2%;
+    width: 100%;
 }
 
+.created-form .form-control:focus{
+    border: 2px solid var(--brighter-blue);
+}
 
 .form-builder .field-work .drag-elements{
     display: grid;
@@ -132,12 +132,12 @@
 
 .cdk-drop-dragging .cdk-drag {
     transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
-  }
+}
   
-  .cdk-drag-animating {
+.cdk-drag-animating {
     transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
-  }
+}
   
-  .cdk-drag-preview {
+.cdk-drag-preview {
     box-sizing: border-box;
-  }
+}

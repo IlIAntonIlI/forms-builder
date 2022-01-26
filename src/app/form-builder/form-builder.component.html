@@ -37,7 +37,9 @@
                 </ng-template>
             </div>
             <div class="element-styling">
-                <h2>Element styling</h2>
+                <h2 (click)="changeVisibilityElementStyling()" [ngClass]="classesOpenClosePanelElements">Element styling</h2>
+                <ng-container #elementStylingContainer cdkPortalOutlet></ng-container>
+                <ng-template #empty></ng-template>
             </div>
         </div>
         <div class="drag-elements" 
@@ -46,20 +48,19 @@
             [cdkDropListData]="elements"
             [cdkDropListConnectedTo]="[formElementsList]"
             (cdkDropListDropped)="drop($event)">
-            <app-form-control *ngFor="let item of elements" element="{{item}}" cdkDrag></app-form-control>
+            <app-form-control *ngFor="let item of elements" element="{{item}}" cdkDrag [selectableSection]="false"></app-form-control>
         </div>
         <div class="form-container">
-            <form class="created-form"
-            cdkDropList
-            #formElementsList="cdkDropList"
-            [cdkDropListData]="formElements"
-            [cdkDropListConnectedTo] = "[elementsList]"
-            (cdkDropListDropped)="drop($event)"
-            [ngStyle]="formStyle">
-            <app-form-control *ngFor="let item of formElements" element="{{item}}" cdkDrag></app-form-control>
-        </form>
+            <form class="created-form" id="created-form"
+                cdkDropList
+                #formElementsList="cdkDropList"
+                [cdkDropListData]="formElements"
+                [cdkDropListConnectedTo] = "[elementsList]"
+                (cdkDropListDropped)="drop($event)"
+                [ngStyle]="formStyle">
+                <app-form-control relatedForm="created-form" *ngFor="let item of formElements" cdkDrag element="{{item}}" [selectableSection]="true" (changeTemplateEmiter) = "getElementStylingTemplate($event)"></app-form-control>
+            </form>
         </div>
-        
     </div>
     
 </section>

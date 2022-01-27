@@ -10,8 +10,9 @@ import {
   styleUrls: ['./form-builder.component.css']
 })
 export class FormBuilderComponent {
-  elements = ['input','textarea','button','check','select'];
-  formElements:string[]=[];
+  elements = [{element: 'input','key':0},{element:'textarea','key':1},{element:'button',key:2},{element:'check',key:3},{element:'select',key:4}];
+  formElements:{'element':string, key:number}[]=[]; 
+  counter:number = 5;
   formStyle={
     'width':'100%',
     'height':'26em',
@@ -23,7 +24,6 @@ export class FormBuilderComponent {
 
   formStylingOpen:boolean = false;
   elementStylingOpen:boolean = false;
-
 
   classesOpenClosePanel = {
     'opened-panel': this.formStylingOpen
@@ -61,12 +61,13 @@ export class FormBuilderComponent {
     }
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<{element:string,key:number}[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      console.log(event);
     } else {
       if(event.previousContainer.id==='cdk-drop-list-0'){
-        this.formElements.splice(event.currentIndex,0,event.previousContainer.data[event.previousIndex]);
+        this.formElements.splice(event.currentIndex,0,{'element': event.previousContainer.data[event.previousIndex].element, 'key': this.counter++});
         return;
       }
       this.formElements.splice(event.previousIndex,1);
@@ -86,7 +87,6 @@ export class FormBuilderComponent {
   }
 
   changeVisibilityElementStyling(){
-    console.log('hello');
     if(this.elementStylingOpen){
       this.elementStylingContainer.clear();
       this.elementStylingOpen=!this.elementStylingOpen;

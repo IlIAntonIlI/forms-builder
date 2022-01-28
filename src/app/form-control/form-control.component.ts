@@ -1,4 +1,15 @@
-import { Component, Input, HostListener, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
+import { Component, Input, HostListener, Output, EventEmitter} from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable, Subscription} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { elementCheckAction } from '../reducers/checked-element/checked-element.actions';
+import { CheckedElement } from '../reducers/checked-element/checked-element.reducer';
+import { selectCheckedElement } from '../reducers/checked-element/checked-element.selectors';
+import { stylesSetAction } from '../reducers/element-styles/element-styles.actions';
+import { CheckedElementStyles, ElementStyles } from '../reducers/element-styles/element-styles.reducer';
+import { selectElement, selectStylesCheckedElement } from '../reducers/element-styles/element-styles.selectors';
+import {isEqual} from "src/app/functions/equalsObject";
 
 @Component({
   selector: 'app-form-control',
@@ -8,13 +19,18 @@ import { Component, Input, HostListener, Output, EventEmitter, ViewChild, Templa
 export class FormControlComponent{
   @Input() element!:string;
   @Input() selectableSection!:boolean;
-  @Output() changeTemplateEmiter = new EventEmitter<TemplateRef<any>>();
-  @Input() relatedForm!:string;
+  @Output() changeSelectedInputEmitter = new EventEmitter<[string,number]>();
+  @Input() key!:string;
+  public elementKey$: Observable<string> = this.store$.pipe(select(selectCheckedElement));
+  public element$: Observable<string> = this.store$.pipe(select(selectElement));
+  public stylesCheckedElement$: Observable<ElementStyles> = this.store$.pipe(select(selectStylesCheckedElement));
+  styleChanges?:Subscription;
+  keyChanges?:Subscription;
 
-  @ViewChild('template', {static: false})
-  template!: TemplateRef<any>;
+  constructor(private store$: Store<CheckedElementStyles>){
+  }
 
-  elementStyle = {
+  elementStyle:ElementStyles={
     'height': '',
     'width': '',
     'border-width': '',
@@ -23,13 +39,17 @@ export class FormControlComponent{
     'border-radius': '',
     'font-size':'',
     'font-weight':'',
-    'color':''
-  }
-
-  elseParameters = {
+    'color':'',
     'placeholder': '',
     'required':''
   }
+
+
+  formControlClasses={
+    'form-control':true,
+    'required':false
+  }
+  
 
   skipClick:boolean = true;
   styles = {
@@ -38,11 +58,13 @@ export class FormControlComponent{
     'border-style': 'solid'
   }
 
-  clickOnFormControl(event:any){
+  clickOnFormControl(){
     if(!this.selectableSection) return
     this.styles['border-color'] = 'blue';
     this.skipClick = true;
-    this.changeTemplateEmiter.emit(this.template);
+    this.store$.dispatch(new stylesSetAction({styles:this.elementStyle,element:this.element,key:this.key}))
+    this.store$.pipe(select(selectStylesCheckedElement)).subscribe((data)=>{console.log(data)});
+    this.store$.pipe(select(selectCheckedElement)).subscribe((data)=>{console.log(data)});
   }
 
   @HostListener('window:click')

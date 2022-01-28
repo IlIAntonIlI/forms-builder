@@ -1,10 +1,10 @@
 .form-control{
     border-radius: 5px;
     box-sizing: border-box;
+    min-width: 15em;
     padding: 1%;
     position: relative;
     text-align: center;
-    min-width: 15em;
 }
 
 .form-control input[type="text"]{
@@ -101,4 +101,18 @@
     padding: 1%;
     text-align: center;
     width: 80%;
+}
+
+.required{
+    overflow: hidden;
+}
+
+.required::after{
+    color: red;
+    content: '∗';
+    font-size: 1.7em;
+    font-weight: bold;
+    margin-left: 0.3em;
+    position: absolute;
+    top:0;
 }

@@ -2,44 +2,8 @@
     <h2>Form builder</h2>
     <div class="field-work">
         <div class="parameters-control-panel">
-            <div class="form-styling">
-                <h2 [ngClass]="classesOpenClosePanel" (click)="changeVisibilityFormStyling()">Form styling</h2>
-                <ng-container #formStylingContainer cdkPortalOutlet></ng-container>
-                <ng-template #formStylingTemplate>
-                    <div class="styling-fields">
-                        <label><span>Enter height:</span>
-                            <input type="text" name="formHeight" [(ngModel)]="formStyle.height">
-                        </label>
-                        <label><span>Enter width:</span>
-                            <input type="text" [(ngModel)]="formStyle.width" >
-                        </label>
-                    </div>
-                    <div>
-                        <h3>Border styling</h3>
-                        <div class="styling-fields">
-                            <label><span>Enter thickness:</span>
-                                <input type="text" [(ngModel)]="formStyle['border-width']" >
-                            </label>
-                            <label><span>Enter color:</span>
-                                <input type="text" [(ngModel)]="formStyle['border-color']" >
-                            </label>
-                            <label><span>Enter border-radius:</span>
-                                <input type="text" [(ngModel)]="formStyle['border-radius']" >
-                            </label>
-                            <select [(ngModel)]="formStyle['border-style']">
-                                <option>dashed</option>
-                                <option>dotted</option>
-                                <option>solid</option>
-                            </select>
-                        </div>
-                    </div>
-                </ng-template>
-            </div>
-            <div class="element-styling">
-                <h2 (click)="changeVisibilityElementStyling()" [ngClass]="classesOpenClosePanelElements">Element styling</h2>
-                <ng-container #elementStylingContainer cdkPortalOutlet></ng-container>
-                <ng-template #empty></ng-template>
-            </div>
+            <app-styling-elements title="Form styling"></app-styling-elements>
+            <app-styling-elements title="Element styling"></app-styling-elements>
         </div>
         <div class="drag-elements" 
             cdkDropList
@@ -47,17 +11,18 @@
             [cdkDropListData]="elements"
             [cdkDropListConnectedTo]="[formElementsList]"
             (cdkDropListDropped)="drop($event)">
-            <app-form-control *ngFor="let item of elements" element="{{item.element}}" key={item.key} cdkDrag [selectableSection]="false"></app-form-control>
+            <app-form-control *ngFor="let item of elements" element="{{item.element}}" key="{{item.key}}" cdkDrag [selectableSection]="false"></app-form-control>
         </div>
         <div class="form-container">
-            <form class="created-form" id="created-form"
+            <form class="created-form"
                 cdkDropList
                 #formElementsList="cdkDropList"
                 [cdkDropListData]="formElements"
                 [cdkDropListConnectedTo] = "[elementsList]"
                 (cdkDropListDropped)="drop($event)"
-                [ngStyle]="formStyle">
-                <app-form-control relatedForm="created-form" *ngFor="let item of formElements" key="item.key" cdkDrag element="{{item.element}}" [selectableSection]="true" (changeTemplateEmiter) = "getElementStylingTemplate($event)"></app-form-control>
+                >
+
+                <app-form-control *ngFor="let item of formElements" key="{{item.key}}" cdkDrag element="{{item.element}}" [selectableSection]="true"></app-form-control>
             </form>
         </div>
     </div>

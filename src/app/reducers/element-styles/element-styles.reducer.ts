@@ -39,29 +39,34 @@ const initialState:CheckedElementStyles = {
         'placeholder': '',
         'required':''
     },
-    element:' ',
-    key:' '
+    element:'',
+    key:''
 }
 
 export const checkedElementStyleReducer = (state=initialState,action:changeActions) => {
     switch (action.type){
-        case changeActionTypes.setStyle:
-            return {
+        case changeActionTypes.setAll:
+            return{
                 ...state,
                 styles:action.payload.styles,
                 element:action.payload.element,
                 key:action.payload.key,
             }
-        // case changeActionTypes.setKey:
-        //     return {
-        //         ...state,
-        //         key:action.payload.key,
-        //     }
-        // case changeActionTypes.setElement:
-        //     return {
-        //         ...state,
-        //         styles:action.payload.element,
-        //     }
+        case changeActionTypes.setStyle:
+            return {
+                ...state,
+                styles:action.payload.styles,
+            }
+        case changeActionTypes.setKey:
+            return{
+                ...state,
+                key:action.payload.key
+            }
+        case changeActionTypes.setElement:
+            return{
+                ...state,
+                element:action.payload.element
+            }
         default:
             return state;
     }

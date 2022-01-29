@@ -1,13 +1,13 @@
-<mat-accordion class="accordion" (click)="passParameters()">
+<mat-accordion class="accordion">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
             {{title}}
         </mat-panel-title>
         <mat-panel-description>
-          This is {{title}} section
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+            This is {{title}} section
+          </mat-panel-description>
+        </mat-expansion-panel-header>
         <form [formGroup]="stylesElement">
             <div class="styling-fields" [ngSwitch]="element" *ngIf="element">
                 <label>
@@ -29,10 +29,6 @@
                     <span>Enter placeholder:</span>
                     <input type="text" formControlName='placeholder'>
                 </label>
-                <!-- <label *ngSwitchCase="'textarea'">
-                    <span>Enter placeholder:</span>
-                    <input type="text" [(ngModel)]="elseParameters.placeholder" >
-                </label> -->
                 <label *ngSwitchCase="'input'">
                     <span>Enter font-size:</span>
                     <input type="text" formControlName='font-size'>
@@ -72,5 +68,6 @@
                 </div>
             </div>
         </form>
+        <button *ngIf="element" (click)="changeStyles()">Change</button>
     </mat-expansion-panel>
   </mat-accordion>

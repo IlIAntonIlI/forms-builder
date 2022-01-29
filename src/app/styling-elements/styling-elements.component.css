@@ -21,3 +21,11 @@ span{
     display: inline-block;
     width: 10em;
 }
+
+button{
+    display: block;
+    cursor: pointer;
+    height: 3em;
+    margin:1em auto 0 auto;
+    width: 30%;
+}

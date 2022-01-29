@@ -6,16 +6,18 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import { CheckedElement, checkedElementNode, checkedElementReducer } from './checked-element/checked-element.reducer';
-import { checkedElementStyleReducer, CheckedElementStyles, stylesNode } from './element-styles/element-styles.reducer';
+import { checkedElementStyleReducer, CheckedElementStyles, ElementStyles, stylesNode } from './element-styles/element-styles.reducer';
+import { formStyleReducer, stylesFormNode } from './form-styles/form-styles.reducer';
 
 
 export interface State {
-  [stylesNode] : CheckedElementStyles 
+  [stylesNode] : CheckedElementStyles,
+  [stylesFormNode] : {styles:ElementStyles}
 }
 
 export const reducers: ActionReducerMap<State,any> = {
-  [stylesNode]:checkedElementStyleReducer
+  [stylesNode]:checkedElementStyleReducer,
+  [stylesFormNode]:formStyleReducer
 };
 
 

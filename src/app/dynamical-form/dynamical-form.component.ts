@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { DynamicalFormService } from '../dynamical-form.service';
+import { Values } from '../interfaces/Values';
 import { CheckedElementStyles, ElementStyles } from '../reducers/element-styles/element-styles.reducer';
 import { DragElement } from '../reducers/elements/elements.reducer';
 import { selectElements } from '../reducers/elements/elements.selectors';
@@ -37,14 +38,18 @@ export class DynamicalFormComponent implements OnInit {
     private dynamicalForm:DynamicalFormService
   ) {
   }
-
+  formValues!:Values;
   ngOnInit(): void {
     this.styles$.subscribe((styles)=>{
       this.stylesForm=styles;
     })
     this.elements$.subscribe(elements=>{
       this.formElements=elements;
+      if(this.form) {
+        this.formValues = this.form.value;
+      }
       this.form=this.dynamicalForm.toFormGroup(this.formElements);
+      this.form.patchValue(this.formValues);
     })
   }
 

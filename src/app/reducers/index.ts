@@ -14,13 +14,13 @@ import { formStyleReducer, stylesFormNode } from './form-styles/form-styles.redu
 export interface State {
   [stylesNode] : CheckedElementStyles,
   [stylesFormNode] : {styles:ElementStyles},
-  [elementsNode] : Elements
+  [elementsNode] : Elements,
 }
 
 export const reducers: ActionReducerMap<State,any> = {
   [stylesNode]:checkedElementStyleReducer,
   [stylesFormNode]:formStyleReducer,
-  [elementsNode] : elementsReducer
+  [elementsNode] : elementsReducer,
 };
 
 

@@ -107,6 +107,11 @@
     }
   },
   "defaultProject": "forms-builder",
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
   "cli": {
     "defaultCollection": "@ngrx/schematics"
   }

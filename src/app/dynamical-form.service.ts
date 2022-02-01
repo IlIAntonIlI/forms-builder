@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { DragElement } from './reducers/elements/elements.reducer';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class DynamicalFormService {
   constructor() { }
 
-  toFormGroup(elements:{element:string,key:number}[]){
+  toFormGroup(elements:DragElement[]){
     const group:any = {};
     elements.forEach(el=>{
       if(el.element!=='button')

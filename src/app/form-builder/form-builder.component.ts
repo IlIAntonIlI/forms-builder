@@ -42,6 +42,7 @@ export class FormBuilderComponent implements OnInit{
   public drop(event: CdkDragDrop<{element:string,key:number}[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      this.store$.dispatch(new setElementsAction({elements:this.formElements}));
     } else {
       if(event.previousContainer.id==='cdk-drop-list-0'){
         if(this.formElements[0].element===''){
@@ -58,5 +59,4 @@ export class FormBuilderComponent implements OnInit{
       this.store$.dispatch(new setElementsAction({elements:this.formElements}));
     }
   }
-
 }

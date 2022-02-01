@@ -15,6 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { reducers, metaReducers } from './reducers';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DynamicalFormComponent } from './dynamical-form/dynamical-form.component';
+import { CutTextPipe } from './pipes/cut-text.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DynamicalFormComponent } from './dynamical-form/dynamical-form.componen
     FormControlComponent,
     StylingElementsComponent,
     DynamicalFormComponent,
+    CutTextPipe
   ],
   imports: [
     BrowserModule,

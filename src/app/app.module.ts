@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers, metaReducers } from './reducers';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DynamicalFormComponent } from './dynamical-form/dynamical-form.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormBuilderComponent,
     FormControlComponent,
     StylingElementsComponent,
+    DynamicalFormComponent,
   ],
   imports: [
     BrowserModule,
